@@ -12,8 +12,6 @@ public class Pedido implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nome;
-
     private long numero;
 
     private String dataEmissao;
@@ -21,8 +19,17 @@ public class Pedido implements Serializable {
     @ManyToOne
     private Cliente cliente;
 
-    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "pedido")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido")
     private List<Produto> produtos = new ArrayList<Produto>();
+
+
+    public Pedido(){
+
+    }
+
+    public Pedido(Long id){
+        this.id = id;
+    }
 
     public Long getId() {
         return id;
@@ -30,14 +37,6 @@ public class Pedido implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public long getNumero() {
@@ -70,5 +69,9 @@ public class Pedido implements Serializable {
 
     public void addProduto(Produto produto) {
         this.produtos.add(produto);
+    }
+
+    public void setProduto(List<Produto> produtos) {
+        this.produtos = produtos;
     }
 }

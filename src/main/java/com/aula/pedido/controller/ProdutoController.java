@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/produto")
+@CrossOrigin
 public class ProdutoController {
 
     @Autowired
@@ -24,12 +25,12 @@ public class ProdutoController {
 
     @GetMapping
     public ResponseEntity<List<Produto>> findAll() {
-        //@RequestParam(required = false) long idPedido
-        //if (idPedido != null && idPedido != 0)
-        //{
-        //    List<Produto> m = repository.findByPedido(idPedido);
-        //    return ResponseEntity.ok(m);
-        //}
         return ResponseEntity.ok(repository.findAll());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable("id") long id) {
+        repository.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 }
